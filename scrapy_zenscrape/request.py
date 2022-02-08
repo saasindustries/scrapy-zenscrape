@@ -4,6 +4,7 @@ import logging
 
 from scrapy import Request
 from scrapy.spidermiddlewares.httperror import HttpError
+import urllib.parse
 
 logger = logging.getLogger(__name__)
 
@@ -55,7 +56,7 @@ class ZenscrapeRequest(Request):
             elif k == 'cookies':
                 new_params[k] = cls.process_cookies(v)
             else:
-                new_params[k] = v
+                new_params[k] = urllib.parse.quote_plus(v)
         return new_params
 
     def handle_error(self, error):
